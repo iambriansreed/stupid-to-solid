@@ -105,7 +105,9 @@ namespace {
 			$this->assertEquals( $a, 'Evening' );
 		}
 
-		public function xtest_GetTimeOfDayByHour_For_1pm_Return_Evening() {
+		// remember test functions have to start with `test`
+
+		public function not_a_test_GetTimeOfDayByHour_For_1pm_Return_Evening() {
 
 			$a = \Gooder_Example\GetTimeOfDayByStr( '1pm' );
 			$this->assertEquals( $a, 'Afternoon' );
