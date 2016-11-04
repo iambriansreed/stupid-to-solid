@@ -49,9 +49,7 @@ namespace Good_Example {
 
 namespace Gooder_Example {
 
-	use \DateTime;
-
-	function GetTimeOfDay( DateTime $date_time ) {
+	function GetTimeOfDay( \DateTime $date_time ) {
 
 		$hour = intval( $date_time->format( 'H' ) );
 
@@ -60,7 +58,7 @@ namespace Gooder_Example {
 
 	function GetTimeOfDayByStr( $date_time_string ) {
 
-		$date_time = new DateTime( $date_time_string );
+		$date_time = new \DateTime( $date_time_string );
 
 		$hour = intval( $date_time->format( 'H' ) );
 
@@ -85,13 +83,13 @@ namespace Gooder_Example {
 
 namespace {
 
+	// set a default_timezone or you will get yelled at
+
+	date_default_timezone_set( 'UTC' );
+
 	use \PHPUnit\Framework\TestCase;
 
 	class HourTest extends TestCase {
-
-		function __construct() {
-			date_default_timezone_set( 'UTC' );
-		}
 
 		public function test_GetTimeOfDayByHour_For_6AM_Return_Morning() {
 
