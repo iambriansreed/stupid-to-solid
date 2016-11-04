@@ -2,7 +2,7 @@
 
 // TightCoupling
 
-namespace BadExample {
+namespace Bad_Example {
 
 	class Door {
 		/* functions this particular door should do */

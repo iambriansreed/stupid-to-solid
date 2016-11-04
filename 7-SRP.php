@@ -1,6 +1,6 @@
 <?php
 
-namespace BadExample {
+namespace Bad_Example {
 
 	class Circle {
 	}
@@ -43,7 +43,7 @@ namespace BadExample {
 	echo $areas->output();
 }
 
-namespace GoodExample {
+namespace Good_Example {
 
 	class Circle {
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace BadExample {
+namespace Bad_Example {
 
 	final class Basket
 	{
@@ -29,7 +29,7 @@ namespace BadExample {
 	}
 }
 
-namespace GoodExample {
+namespace Good_Example {
 
 	abstract class ProductContainer
 	{

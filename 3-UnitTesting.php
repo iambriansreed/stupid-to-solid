@@ -1,11 +1,17 @@
 <?php
 
-namespace BadExample {
+namespace Bad_Example {
+
+	use \DateTime;
 
 	function GetTimeOfDay() {
 
-		$time = new \DateTime( 'NOW' );
+		date_default_timezone_set( 'UTC' );
+
+		$time = new DateTime( 'NOW' );
+
 		$hour = intval( $time->format( 'H' ) );
+
 		if ( $hour >= 0 && $hour < 6 ) {
 			return "Night";
 		}
@@ -20,7 +26,7 @@ namespace BadExample {
 	}
 }
 
-namespace GoodExample {
+namespace Good_Example {
 
 	function GetTimeOfDay( \DateTime $date_time ) {
 
@@ -39,6 +45,28 @@ namespace GoodExample {
 		return "Evening";
 	}
 
+}
+
+namespace Gooder_Example {
+
+	use \DateTime;
+
+	function GetTimeOfDay( DateTime $date_time ) {
+
+		$hour = intval( $date_time->format( 'H' ) );
+
+		return GetTimeOfDayByHour( $hour );
+	}
+
+	function GetTimeOfDayByStr( $date_time_string ) {
+
+		$date_time = new DateTime( $date_time_string );
+
+		$hour = intval( $date_time->format( 'H' ) );
+
+		return GetTimeOfDayByHour( $hour );
+	}
+
 	function GetTimeOfDayByHour( $hour ) {
 
 		if ( $hour >= 0 && $hour < 6 ) {
@@ -53,22 +81,34 @@ namespace GoodExample {
 
 		return "Evening";
 	}
+}
+
+namespace {
 
 	use \PHPUnit\Framework\TestCase;
 
 	class HourTest extends TestCase {
 
-		public function testGetTimeOfDayByHour_For6AM_ReturnsMorning() {
+		function __construct() {
+			date_default_timezone_set( 'UTC' );
+		}
 
-			$a = \GoodExample\GetTimeOfDayByHour( 7 ); // 0 based hour sucka!
+		public function test_GetTimeOfDayByHour_For_6AM_Return_Morning() {
+
+			$a = \Gooder_Example\GetTimeOfDayByHour( 7 );
 			$this->assertEquals( $a, 'Morning' );
 		}
 
-		public function testGetTimeOfDayByHour_For10pm_ReturnsEvening() {
+		public function test_GetTimeOfDayByHour_For_10pm_Return_Evening() {
 
-			$a = \GoodExample\GetTimeOfDayByHour( 11 ); // 0 based hour sucka!
+			$a = \Gooder_Example\GetTimeOfDayByHour( 11 );
 			$this->assertEquals( $a, 'Evening' );
+		}
+
+		public function xtest_GetTimeOfDayByHour_For_1pm_Return_Evening() {
+
+			$a = \Gooder_Example\GetTimeOfDayByStr( '1pm' );
+			$this->assertEquals( $a, 'Afternoon' );
 		}
 	}
 }
-

@@ -3,7 +3,7 @@
 // Singletons
 
 
-namespace BadExample1 {
+namespace Bad_Example1 {
 
 	class DB {
 

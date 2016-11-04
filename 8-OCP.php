@@ -1,6 +1,6 @@
 <?php
 
-namespace BadExample {
+namespace Bad_Example {
 
 	class AreaCalculator {
 
@@ -31,7 +31,7 @@ public function sum() {
 	}
 }
 
-namespace GoodExample {
+namespace Good_Example {
 
 	interface IShape {
 

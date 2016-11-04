@@ -1,6 +1,6 @@
 <?php
 
-namespace BadExample {
+namespace Bad_Example {
 
 	class Peter {
 
