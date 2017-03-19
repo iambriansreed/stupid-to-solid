@@ -2,10 +2,7 @@
 
 namespace Bad_Example {
 
-	interface Shape {
-	}
-
-	class Rectangle implements Shape {
+	class Rectangle implements \Good_Example\IShape {
 
 		protected $width;
 		protected $height;
@@ -34,12 +31,12 @@ namespace Bad_Example {
 
 		public function setHeight( $height ) {
 			$this->height = $height;
-			$this->width = $height;
+			$this->width  = $height;
 		}
 
 		public function setWidth( $width ) {
 			$this->height = $width;
-			$this->width = $width;
+			$this->width  = $width;
 		}
 	}
 
@@ -49,5 +46,22 @@ namespace Bad_Example {
 	$box->setWidth( 3 );
 
 	assert( $box->area() == 15 );
+
+}
+
+namespace Good_Example {
+
+	class Square implements IShape {
+
+		protected $side;
+
+		public function setSide( $side ) {
+			$this->side = $side;
+		}
+
+		public function area() {
+			return pow( $this->side, 2 );
+		}
+	}
 
 }

@@ -2,13 +2,7 @@
 
 namespace Bad_Example {
 
-	class Circle {
-	}
-
-	class Square {
-	}
-
-	class AreaCalculator {
+	class Area_Calculator {
 
 		protected $shapes;
 
@@ -38,39 +32,39 @@ namespace Bad_Example {
 		new Square( 6 )
 	);
 
-	$areas = new AreaCalculator( $shapes );
+	$areas = new Area_Calculator( $shapes );
 
 	echo $areas->output();
 }
 
 namespace Good_Example {
 
-	class Circle {
+	class Data_Outputter {
+
+		private $data;
+
+		public function __construct( $data ) {
+			$this->data = $data;
+		}
+
+		public function JSON() {
+			echo json_encode( $this->data );
+		}
+
+		public function HTML() {
+			echo "<h1>",
+			"Sum of the areas of provided shapes: ",
+			$this->data,
+			"</h1>";
+		}
 	}
 
-	class Square {
-	}
+	$output = new Data_Outputter( $data );
 
-	class AreaCalculator {
-	}
-
-	class SumCalculatorOutputter {
-	}
-
-	$shapes = array(
-		new Circle( 2 ),
-		new Square( 5 ),
-		new Square( 6 )
-	);
-
-	$areaCalculator = new AreaCalculator( $shapes );
-
-	$output = new SumCalculatorOutputter( $areaCalculator );
-
-	echo $output->JSON();
-	echo $output->HAML();
-	echo $output->HTML();
-	echo $output->JADE();
+	$output->JSON();
+	$output->HAML();
+	$output->HTML();
+	$output->JADE();
 
 
 }

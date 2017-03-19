@@ -2,32 +2,28 @@
 
 namespace Bad_Example {
 
-	class AreaCalculator {
+	class Area_Calculator {
 
-		protected $shapes = array();
+		protected $shapes;
 
-		public function __construct( array $shapes ) {
+		public function __construct( $shapes = array() ) {
 			$this->shapes = $shapes;
 		}
 
-public function sum() {
+		public function result() {
 
-	$area = array();
+			$area = array();
 
-	foreach ( $this->shapes as $shape ) {
+			foreach ( $this->shapes as $shape ) {
+				if ( is_a( $shape, 'Square' ) ) {
+					$area[] = pow( $shape->length, 2 );
+				} else if ( is_a( $shape, 'Circle' ) ) {
+					$area[] = pi() * pow( $shape->radius, 2 );
+				}
+			}
 
-		if ( is_a( $shape, 'Square' ) ) {
-
-			$area[] = pow( $shape->length, 2 );
-
-		} else if ( is_a( $shape, 'Circle' ) ) {
-
-			$area[] = pi() * pow( $shape->radius, 2 );
+			return array_sum( $area );
 		}
-	}
-
-	return array_sum( $area );
-}
 	}
 }
 
@@ -38,42 +34,50 @@ namespace Good_Example {
 		public function area();
 	}
 
-	class Square implements IShape {
+	class Rectangle implements IShape {
 
-		public $length;
+		protected $width;
+		protected $height;
 
-		public function __construct( $length ) {
-			$this->length = $length;
+		public function setHeight( $height ) {
+			$this->height = $height;
+		}
+
+		public function setWidth( $width ) {
+			$this->width = $width;
 		}
 
 		public function area() {
-			return pow( $this->length, 2 );
+			return $this->width * $this->height;
 		}
 	}
 
-	class AreaCalculator {
+	class Area_Calculator {
 
 		protected $shapes = array();
 
 		public function __construct( array $shapes ) {
+			$this->validateShapes( $shapes );
 			$this->shapes = $shapes;
 		}
 
-		public function AddShape( IShape $shape ) {
-			$this->shapes[] = $shape;
+		public static function validateShapes( $shapes ) {
+			foreach ( $shapes as $shape ) {
+				if ( ! ( $shape instanceof IShape ) ) {
+					throw new \Exception( 'All shapes must implement the IShape interface.' );
+				}
+			}
 		}
 
-		public function sum() {
+		public function result() {
+			$areas = array_map( function ( IShape $shape ) {
+				return $shape->area();
+			}, $this->shapes );
 
-			$area = array();
-
-			foreach ( $this->shapes as $shape ) {
-				$area[] = $shape->area();
-			}
-
-			return array_sum( $area );
+			return array_sum( $areas );
 		}
 	}
+
 }
 
 
